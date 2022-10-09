@@ -1,52 +1,67 @@
 package com.training.stepdefinitions;
 
-import com.training.pages.BasePage;
-import com.training.steps.BaseSteps;
-import com.training.steps.ReflectionSteps;
+import com.training.pages.GoogleSearchPage;
+import com.training.pages.WikiPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.core.Serenity;
 import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
 
 public class MyStepDefinitions {
 
-    @Steps
-    private BaseSteps baseSteps;
-
-    @Steps
-    private ReflectionSteps reflectionSteps;
-
     @Given("The user opens {string} link")
     public void theUserOpensLink(String link) {
-        baseSteps.browserGetPageByLink(link);
+        WebDriver driver = Serenity.getDriver();
+        driver.get(link);
     }
 
-    @When("The user types the text {string} into the field {string} on the {string} page")
-    public void theUserTypesTheTextIntoTheFieldOnThePage(String text, String fieldName, String pageName) throws Exception {
-        BasePage page = reflectionSteps.getPageByName(pageName);
-        String locator = reflectionSteps.getLabelAnnotatedValue(page, fieldName);
-        baseSteps.typeTextIntoField(page, locator, text);
+    @When("The page Google Search is opened")
+    public void theGoogleSearchPageIsOpened() {
+        WebDriver driver = Serenity.getDriver();
+        GoogleSearchPage page = new GoogleSearchPage(driver);
+        Assert.assertTrue("Google Search page was not opened!!!!", page.verify());
     }
 
-    @When("The user clicks the button {string} on {string} page")
-    public void theUserClicksTheButtonOnPage(String buttonName, String pageName) throws Exception {
-        BasePage page = reflectionSteps.getPageByName(pageName);
-        String locator = reflectionSteps.getLabelAnnotatedValue(page, buttonName);
-        baseSteps.clickButton(page, locator);
+    @When("The user types the text {string} into the Search Field on the Google Search page")
+    public void theUserTypesTheTextIntoTheSearchFieldOnTheGoogleSearchPage(String text) {
+        WebDriver driver = Serenity.getDriver();
+        GoogleSearchPage page = new GoogleSearchPage(driver);
+        String locator = page.getSearchInputField();
+        page.$(locator).type(text);
     }
 
-    @Then("The user verifies that the page {string} is opened")
-    public void theUserVerifiesThatThePageIsOpened(String pageName) throws Exception {
-        BasePage page = reflectionSteps.getPageByName(pageName);
-        Assert.assertTrue(String.format("The page %s was not opened !!!", pageName), page.verify());
+    @When("The user clicks the Search Button on the Google Search page")
+    public void theUserClicksTheButtonOnTheGoogleSearchPage() {
+        WebDriver driver = Serenity.getDriver();
+        GoogleSearchPage page = new GoogleSearchPage(driver);
+        String locator = page.getSearchButton();
+        page.$(locator).waitUntilClickable().click();
     }
 
-    @Then("The user verifies that the element {string} value on the page {string} is equal to {string}")
-    public void theUserVerifiesThatTheElementValueOnThePageIsEqualTo(String elementName, String pageName, String expectedValue) throws Exception {
-        BasePage page = reflectionSteps.getPageByName(pageName);
-        String locator = reflectionSteps.getLabelAnnotatedValue(page, elementName);
-        String actualValue = baseSteps.getElementText(page, locator);
+    @When("The user clicks the First Result button on the Google Search page")
+    public void theUserClicksTheFirstResultButtonOnTheGoogleSearchPage() {
+        WebDriver driver = Serenity.getDriver();
+        GoogleSearchPage page = new GoogleSearchPage(driver);
+        String locator = page.getTheFirstSearchResults();
+        page.$(locator).waitUntilClickable().click();
+    }
+
+    @Then("The user verifies that the page Wiki is opened")
+    public void theUserVerifiesThatThePageWikiIsOpened() {
+        WebDriver driver = Serenity.getDriver();
+        WikiPage page = new WikiPage(driver);
+        Assert.assertTrue("Wiki page was not opened!!!!", page.verify());
+    }
+
+    @Then("The user verifies that the element First Header value on the page Wiki is equal to {string}")
+    public void theUserVerifiesThatTheElementValueOnThePageWikiIsEqualTo(String expectedValue) {
+        WebDriver driver = Serenity.getDriver();
+        WikiPage page = new WikiPage(driver);
+        String locator = page.getFirstHeader();
+        String actualValue = page.$(locator).getText();
         Assert.assertEquals(expectedValue, actualValue);
     }
+
 }

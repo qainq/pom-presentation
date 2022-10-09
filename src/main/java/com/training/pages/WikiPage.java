@@ -12,7 +12,7 @@ public class WikiPage extends BasePage{
     private String goToTheMainPageBanner = "//div[@role='banner']/a";
 
     @Label("First Header")
-    private String bodyContent = "//*[@id='firstHeading']/span[1]";
+    private String firstHeader = "//*[@id='firstHeading']/span[1]";
 
     public WikiPage(WebDriver driver){
         super(driver);
