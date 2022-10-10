@@ -16,7 +16,7 @@ public class GoogleSearchPage extends BasePage{
     private String searchButton = "//input[@value='Пошук Google']";//"//input[@type='text']"
 
     @Label("The First Result")
-    private String searchResults = "//*[@id='rso']/div[1]/div/div/div[1]/div/div/div[1]/div/a";
+    private String theFirstSearchResults = "(//div[@id='search']//a)[1]";
 
     public GoogleSearchPage(WebDriver driver){
         super(driver);
