@@ -13,7 +13,7 @@ public class GoogleSearchPage extends BasePage{
     private String searchInputField = "//input[@title='Пошук']";//"//input[@name='q']"
 
     @Label("Search Button")
-    private String searchButton = "//input[@value='Пошук Google']";//"//input[@type='text']"
+    private String searchButton = "(//input[@value='Пошук Google'])[2]";//"//input[@type='text']"
 
     @Label("The First Result")
     private String theFirstSearchResults = "(//div[@id='search']//a)[1]";
