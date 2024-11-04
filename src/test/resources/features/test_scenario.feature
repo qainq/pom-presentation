@@ -2,7 +2,8 @@ Feature: POM Presentation
 
   Scenario: Search wiki article
     Given User open "https://www.google.com/" link
-    When User type text "" into field "search" on page "Google Search"
-    When User click button "search button" on page "Google Search"
-    Then User verify page "Wiki" is opened
-    Then User verify element "y Element" is displayed on page "Wiki"
+    When User verify page "GoogleSearchPage" is opened
+    When User type text "Wiki" into field "Search Field" on page "GoogleSearchPage"
+    When User click button "Search Button" on page "GoogleSearchPage"
+    When User click button "The First Result" on page "GoogleSearchPage"
+    Then User verify page "WikiPage" is opened
