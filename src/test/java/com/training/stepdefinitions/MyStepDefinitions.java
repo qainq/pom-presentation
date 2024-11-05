@@ -8,7 +8,6 @@ import com.training.steps.PageSteps;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.spring.CucumberContextConfiguration;
 import net.serenitybdd.core.Serenity;
 import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
 
-@CucumberContextConfiguration
-@ContextConfiguration(classes = TestConfig.class)
+//@ContextConfiguration(classes = TestConfig.class)
 public class MyStepDefinitions {
 
     @Autowired
@@ -50,5 +48,4 @@ public class MyStepDefinitions {
                 .as(pageName + " page is not opened")
                 .matches(BasePage::verify);
     }
-
 }
