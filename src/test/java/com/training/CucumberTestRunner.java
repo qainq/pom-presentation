@@ -13,6 +13,5 @@ import org.springframework.test.context.ContextConfiguration;
         ,
         glue = {"com/training/stepdefinitions"}
 )
-@ContextConfiguration(classes = TestConfig.class)
 public class CucumberTestRunner {
 }

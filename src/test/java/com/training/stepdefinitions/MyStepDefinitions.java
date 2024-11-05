@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
 
-//@ContextConfiguration(classes = TestConfig.class)
+@ContextConfiguration(classes = TestConfig.class)
 public class MyStepDefinitions {
 
     @Autowired
